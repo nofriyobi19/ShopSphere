@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using ShopSphere.Data.Models;
 using ShopSphere.Data.Repositories.Interfaces;
 

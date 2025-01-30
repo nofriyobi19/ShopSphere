@@ -4,6 +4,6 @@ namespace ShopSphere.Controllers;
 
 public class HomeController : Controller {
     public IActionResult Index() {
-        return RedirectToAction("index", "category");
+        return View();
     }
 }

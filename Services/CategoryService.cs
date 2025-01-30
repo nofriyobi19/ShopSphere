@@ -12,8 +12,8 @@ public class CategoryService(ICategoryRepository categoryRepository) {
         return [.. categories.Select(e => e.ToCategoryViewModel())];
     }
 
-    public async Task<CategoryViewModel> GetCategoryById(long id) {
-        var category = await _categoryRepository.FindByIdAsync(id);
+    public async Task<CategoryViewModel> GetCategoryById(long categoryId) {
+        var category = await _categoryRepository.FindByIdAsync(categoryId);
         return category.ToCategoryViewModel();
     }
 
@@ -22,8 +22,8 @@ public class CategoryService(ICategoryRepository categoryRepository) {
         return category.ToCategoryViewModel();
     }
 
-    public async Task<CategoryViewModel> DeleteCategoryByIdAsync(long id) {
-        var category = await _categoryRepository.FindByIdAsync(id);
+    public async Task<CategoryViewModel> DeleteCategoryByIdAsync(long categoryId) {
+        var category = await _categoryRepository.FindByIdAsync(categoryId);
         await _categoryRepository.DeleteAsync(category);
         return category.ToCategoryViewModel();
     }

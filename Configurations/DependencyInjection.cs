@@ -10,7 +10,9 @@ public static class DependencyInjection {
         services.AddDbContext<ShopSphereContext>();
 
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         services.AddScoped<CategoryService>();
+        services.AddScoped<ProductService>();
     }
 }

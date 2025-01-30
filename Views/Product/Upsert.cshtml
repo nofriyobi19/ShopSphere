@@ -1,0 +1,25 @@
+@model ProductUpsertViewModel
+
+<form asp-action="save" method="post">
+    <input type="hidden" asp-for="@Model.Id">
+
+    <label asp-for="@Model.CategoryId"></label>
+    <select asp-for="@Model.CategoryId" asp-items="@Model.CategoryDropdown">
+        <option value="">Select Category</option>
+    </select>
+    
+    <label asp-for="@Model.Name"></label>
+    <input asp-for="@Model.Name">
+
+    <label asp-for="@Model.Description"></label>
+    <input asp-for="@Model.Description">
+
+    <label asp-for="@Model.Price"></label>
+    <input asp-for="@Model.Price">
+
+    <label asp-for="@Model.Stock"></label>
+    <input asp-for="@Model.Stock">
+
+    <input type="submit">
+    <a asp-action="index">Cancel</a>
+</form>
