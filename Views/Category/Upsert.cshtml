@@ -1,0 +1,8 @@
+@model CategoryViewModel
+
+<form method="post" asp-action="save">
+    <input type="hidden" asp-for="@Model.Id">
+    <label asp-for="@Model.Name"></label>
+    <input asp-for="@Model.Name">
+    <input type="submit">
+</form>

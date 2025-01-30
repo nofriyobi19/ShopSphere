@@ -1,0 +1,23 @@
+@model List<CategoryViewModel>
+
+<a asp-action="upsert">Add New Category</a>
+
+<table>
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model) {
+            <tr>
+                <td>@category.Name</td>
+                <td>
+                    <a asp-action="upsert" asp-route-id="@category.Id">Edit</a>
+                    <a asp-action="delete" asp-route-id="@category.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
