@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopSphere.Data.Models;
+using ShopSphere.Models;
 using ShopSphere.Models.Categories;
 
 namespace ShopSphere.Helpers;
@@ -23,6 +24,13 @@ public static class CategoryMapper {
         return new SelectListItem {
             Value = category.CategoryId.ToString(),
             Text = category.Name
+        };
+    }
+
+    public static GridViewModel<CategoryViewModel> ToCategoryViewModel(this GridViewModel<Category> categoryGrid) {
+        return new GridViewModel<CategoryViewModel> {
+            Content = [.. categoryGrid.Content.Select(e => e.ToCategoryViewModel())],
+            Pagination = categoryGrid.Pagination
         };
     }
 }

@@ -9,8 +9,9 @@ public class ProductController(ProductService service) : Controller {
     private readonly ProductService _service = service;
 
     [Route("")]
-    public async Task<IActionResult> Index() {
-        var products = await _service.GetAllProductAsync();
+    public async Task<IActionResult> Index(int pageNumber, int pageSize, string sortBy, string sort, string name, decimal minPrice, decimal maxPrice, long category) {
+        name ??= "";
+        var products = await _service.GetAllProductAsync(pageNumber, pageSize, sortBy, sort, name, minPrice, maxPrice, category);
         return View(products);
     }
 

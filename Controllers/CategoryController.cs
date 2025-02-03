@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ShopSphere.Models;
 using ShopSphere.Models.Categories;
 using ShopSphere.Services;
 
@@ -9,8 +10,9 @@ public class CategoryController(CategoryService service) : Controller {
     private readonly CategoryService _service = service;
 
     [Route("")]
-    public async Task<IActionResult> Index() {
-        var categories = await _service.GetAllCategoryAsync();
+    public async Task<IActionResult> Index(int pageNumber, int pageSize, string sortBy, string sort, string name) {
+        name ??= "";
+        var categories = await _service.GetAllCategoryAsync(pageNumber, pageSize, sortBy, sort, name);
         return View(categories);
     }
 

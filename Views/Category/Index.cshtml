@@ -1,24 +1,62 @@
-@model List<CategoryViewModel>
+@model CategoryGridViewModel
 
-<a asp-controller="home">Back to Home</a>
-<a asp-action="upsert">Add New Category</a>
+@{
+    if (Model.Payload.Pagination.SortBy == "CategoryId") Model.Payload.Pagination.SortBy = "entry";
+}
 
-<table>
-    <thead>
-        <tr>
-            <td>Category Name</td>
-            <td>Action</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var category in Model) {
+<div>
+    <h1>Category List</h1>
+</div>
+
+<div>
+    <a asp-controller="home">Back to Home</a>
+    <a asp-action="upsert">Add New Category</a>
+</div>
+
+<div>
+    <form>
+        <input type="search" name="name" placeholder="search by category name..." asp-for="@Model.Name">
+        <input type="hidden" name="pageNumber" asp-for="@Model.Payload.Pagination.PageNumber">
+        <label asp-for="@Model.Payload.Pagination.PageSize">Rows</label>
+        <select name="pageSize" asp-for="@Model.Payload.Pagination.PageSize" asp-items="@Model.Payload.Pagination.PageSizeDropdown"></select>
+        <label asp-for="@Model.Payload.Pagination.Sort">Sort</label>
+        <select name="sort" asp-for="@Model.Payload.Pagination.Sort" asp-items="@Model.Payload.Pagination.SortDropdown"></select>
+        <label asp-for="@Model.Payload.Pagination.SortBy">Sort By</label>
+        <select name="sortBy" asp-for="@Model.Payload.Pagination.SortBy">
+            <option value="entry">Entry</option>
+            <option value="name">Name</option>
+        </select>
+        <input type="submit">
+    </form>
+</div>
+
+<div>
+    <table>
+        <thead>
             <tr>
-                <td>@category.Name</td>
-                <td>
-                    <a asp-action="upsert" asp-route-id="@category.Id">Edit</a>
-                    <a asp-action="delete" asp-route-id="@category.Id">Delete</a>
+                <th>Category Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.Payload.Content) {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>
+                        <a asp-action="upsert" asp-route-id="@category.Id">Edit</a>
+                        <a asp-action="delete" asp-route-id="@category.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    @for(int i = 1; i <= Model.Payload.Pagination.TotalPages; i++) {
+                        <a asp-route-pageNumber="@i" asp-route-pageSize="@Model.Payload.Pagination.PageSize" asp-route-sort="@Model.Payload.Pagination.Sort" asp-route-sortBy="@Model.Payload.Pagination.SortBy" asp-route-name="@Model.Name">@i</a>
+                    }
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+        </tfoot>
+    </table>
+</div>

@@ -164,3 +164,4 @@ C:\Users\ASUS\Documents\Project\ShopSphere\obj\Debug\net8.0\ShopSphere.csproj.As
 C:\Users\ASUS\Documents\Project\ShopSphere\obj\Debug\net8.0\ShopSphere.csproj.Up2Date
 C:\Users\ASUS\Documents\Project\ShopSphere\obj\Debug\net8.0\ShopSphere.RazorAssemblyInfo.cache
 C:\Users\ASUS\Documents\Project\ShopSphere\obj\Debug\net8.0\ShopSphere.RazorAssemblyInfo.cs
+C:\Users\ASUS\Documents\Project\ShopSphere\bin\Debug\net8.0\System.Linq.Dynamic.Core.dll

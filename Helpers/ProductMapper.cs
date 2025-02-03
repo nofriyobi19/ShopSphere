@@ -1,4 +1,5 @@
 using ShopSphere.Data.Models;
+using ShopSphere.Models;
 using ShopSphere.Models.Products;
 
 namespace ShopSphere.Helpers;
@@ -34,6 +35,13 @@ public static class ProductMapper {
             Price = productUpsertViewModel.Price,
             Stock = productUpsertViewModel.Stock,
             CategoryId = productUpsertViewModel.CategoryId
+        };
+    }
+
+    public static GridViewModel<ProductViewModel> ToProductViewModel(this GridViewModel<Product> productGrid) {
+        return new GridViewModel<ProductViewModel> {
+            Content = [.. productGrid.Content.Select(e => e.ToProductViewModel())],
+            Pagination = productGrid.Pagination
         };
     }
 }

@@ -1,31 +1,78 @@
-@model List<ProductViewModel>
+@model ProductGridViewModel
 
-<a asp-action="upsert">Add New Product</a>
+@{
+    if (Model.Payload.Pagination.SortBy == "ProductId") Model.Payload.Pagination.SortBy = "entry"; 
+}
 
-<table>
-    <thead>
-        <tr>
-            <td>Category</td>
-            <td>Product Name</td>
-            <td>Description</td>
-            <td>Price</td>
-            <td>Stock</td>
-            <td>Action</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model) {
+<div>
+    <h1>Product List</h1>
+</div>
+
+<div>
+    <a asp-controller="home">Back to home</a>
+    <a asp-action="upsert">Add New Product</a>
+</div>
+
+<div>
+    <form>
+        <input type="search" name="name" placeholder="search by product name..." asp-for="@Model.Name">
+        <label>Price</label>
+        <input asp-for="@Model.MinPrice"> - <input asp-for="@Model.MaxPrice">
+        <label asp-for="@Model.Category"></label>
+        <select asp-for="@Model.Category" asp-items="@Model.CategoryDropdown">
+            <option value="0">Please select one</option>
+        </select>
+        <input type="hidden" name="pageNumber" asp-for="@Model.Payload.Pagination.PageNumber">
+        <label asp-for="@Model.Payload.Pagination.PageSize">Rows</label>
+        <select name="pageSize" asp-for="@Model.Payload.Pagination.PageSize" asp-items="@Model.Payload.Pagination.PageSizeDropdown"></select>
+        <label asp-for="@Model.Payload.Pagination.Sort">Sort</label>
+        <select name="sort" asp-for="@Model.Payload.Pagination.Sort" asp-items="@Model.Payload.Pagination.SortDropdown"></select>
+        <label asp-for="@Model.Payload.Pagination.SortBy">Sort By</label>
+        <select name="sortBy" asp-for="@Model.Payload.Pagination.SortBy">
+            <option value="entry">Entry</option>
+            <option value="name">Product Name</option>
+            <option value="price">Price</option>
+            <option value="stock">Stock</option>
+        </select>
+        <input type="submit">
+    </form>
+</div>
+
+<div>
+    <table>
+        <thead>
             <tr>
-                <td>@product.CategoryName</td>
-                <td>@product.Name</td>
-                <td>@product.Description</td>
-                <td>@product.Price</td>
-                <td>@product.Stock</td>
-                <td>
-                    <a asp-action="upsert" asp-route-id="@product.Id">Edit</a>
-                    <a asp-action="delete" asp-route-id="@product.Id">Delete</a>
+                <th>Category</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Payload.Content) {
+                <tr>
+                    <td>@product.CategoryName</td>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price</td>
+                    <td>@product.Stock</td>
+                    <td>
+                        <a asp-action="upsert" asp-route-id="@product.Id">Edit</a>
+                        <a asp-action="delete" asp-route-id="@product.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    @for(int i = 1; i <= Model.Payload.Pagination.TotalPages; i++) {
+                        <a asp-route-pageNumber="@i" asp-route-pageSize="@Model.Payload.Pagination.PageSize" asp-route-sort="@Model.Payload.Pagination.Sort" asp-route-sortBy="@Model.Payload.Pagination.SortBy" asp-route-name="@Model.Name" asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice" asp-route-category="@Model.Category">@i</a>
+                    }
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+        </tfoot>
+    </table>
+</div>
