@@ -1,0 +1,8 @@
+@model LoginViewModel
+
+<form asp-route="verifyLogin" method="post">
+    <input asp-for="@Model.Username" placeholder="Username">
+    <input type="password" asp-for="@Model.Password" placeholder="Password">
+    <input type="hidden" asp-for="@Model.ReturnUrl">
+    <input type="submit">
+</form>

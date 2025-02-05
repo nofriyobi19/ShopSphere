@@ -14,4 +14,8 @@ public class UserRepository(ShopSphereContext shopSphereContext) : CrudRepositor
         var userPaging = await users.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).ToListAsync();
         return new GridViewModel<User>(userPaging, pagination);
     }
+
+    public async Task<User> FindByUsernameAsync(string username) {
+        return await dbContext.Users.SingleAsync(e => e.Username == username);
+    }
 }

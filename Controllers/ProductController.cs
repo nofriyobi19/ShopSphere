@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopSphere.Models.Products;
 using ShopSphere.Services;
@@ -5,6 +6,7 @@ using ShopSphere.Services;
 namespace ShopSphere.Controllers;
 
 [Route("product")]
+[Authorize(Roles = "Admin")]
 public class ProductController(ProductService service) : Controller {
     private readonly ProductService _service = service;
 

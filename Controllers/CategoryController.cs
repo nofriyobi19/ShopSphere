@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopSphere.Models;
 using ShopSphere.Models.Categories;
 using ShopSphere.Services;
 
 namespace ShopSphere.Controllers;
 
 [Route("category")]
+[Authorize(Roles = "Admin")]
 public class CategoryController(CategoryService service) : Controller {
     private readonly CategoryService _service = service;
 

@@ -1,3 +1,4 @@
+using Isopoh.Cryptography.Argon2;
 using ShopSphere.Data.Repositories.Interfaces;
 using ShopSphere.Helpers;
 using ShopSphere.Models;
@@ -45,6 +46,12 @@ public class AccountService(IUserRepository userRepository) {
     public async Task<UserViewModel> DeleteUserByIdAsync(long id) {
         var user = await _userRepository.FindByIdAsync(id);
         await _userRepository.DeleteAsync(user);
+        return user.ToUserViewModel();
+    }
+
+    public async Task<UserViewModel> VerifyUser(LoginViewModel loginViewModel) {
+        var user = await _userRepository.FindByUsernameAsync(loginViewModel.Username) ?? throw new KeyNotFoundException("invalid username or password");
+        if (!Argon2.Verify(user.Password, loginViewModel.Password)) throw new KeyNotFoundException("invalid username or password");
         return user.ToUserViewModel();
     }
 }
