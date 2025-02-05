@@ -21,9 +21,9 @@ public class AccountService(IUserRepository userRepository) {
         };
     }
 
-    public async Task<AdminUpdateViewModel> GetAdminUpdateAsync(long id) {
+    public async Task<UserUpdateViewModel> GetUserUpdateAsync(long id) {
         var user = await _userRepository.FindByIdAsync(id);
-        return user.ToAdminUpdateViewModel();
+        return user.ToUserUpdateViewModel();
     }
 
     public async Task<UserViewModel> SaveAdminAsync(AdminRegisterViewModel adminRegisterViewModel) {
@@ -31,9 +31,14 @@ public class AccountService(IUserRepository userRepository) {
         return user.ToUserViewModel();
     }
 
-    public async Task<UserViewModel> SaveAdminAsync(AdminUpdateViewModel adminUpdateViewModel) {
-        var userModel = await _userRepository.FindByIdAsync(adminUpdateViewModel.Id);
-        var user = await _userRepository.SaveAsync(adminUpdateViewModel.ToUser(userModel));
+    public async Task<UserViewModel> SaveUserAsync(UserRegisterViewModel userRegisterViewModel) {
+        var user = await _userRepository.SaveAsync(userRegisterViewModel.ToUser());
+        return user.ToUserViewModel();
+    }
+
+    public async Task<UserViewModel> SaveUserAsync(UserUpdateViewModel userUpdateViewModel) {
+        var userModel = await _userRepository.FindByIdAsync(userUpdateViewModel.Id);
+        var user = await _userRepository.SaveAsync(userUpdateViewModel.ToUser(userModel));
         return user.ToUserViewModel();
     }
 

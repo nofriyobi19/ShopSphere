@@ -2,10 +2,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShopSphere.Models.Users;
 
-public class AdminRegisterViewModel {
+public class UserRegisterViewModel {
     public string Username { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+
+    [Display(Name = "Confirm Password")]
+    public string ConfirmPassword { get; set; } = null!;
     
     [Display(Name = "First Name")]
     public string FirstName { get; set; } = null!;

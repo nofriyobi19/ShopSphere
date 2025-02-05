@@ -11,6 +11,7 @@
 <div>
     <a asp-controller="home">Back to home</a>
     <a asp-route="registerAdmin">Register Admin</a>
+    <a asp-route="registerUser">Register User</a>
 </div>
 
 <div>
@@ -56,7 +57,7 @@
                     <td>@user.Role</td>
                     <td>
                         @if (user.Role == "Admin") {
-                            <a asp-route="updateAdmin" asp-route-id="@user.Id">Edit</a>
+                            <a asp-action="update" asp-route-id="@user.Id">Edit</a>
                         }
                         <a asp-action="delete" asp-route-id="@user.Id">Delete</a>
                     </td>

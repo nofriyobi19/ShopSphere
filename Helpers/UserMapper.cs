@@ -33,8 +33,8 @@ public static class UserMapper {
         };
     }
 
-    public static AdminUpdateViewModel ToAdminUpdateViewModel(this User user) {
-        return new AdminUpdateViewModel {
+    public static UserUpdateViewModel ToUserUpdateViewModel(this User user) {
+        return new UserUpdateViewModel {
             Id = user.UserId,
             Username = user.Username,
             FirstName = user.FirstName,
@@ -43,11 +43,22 @@ public static class UserMapper {
         };
     }
 
-    public static User ToUser(this AdminUpdateViewModel adminUpdateViewModel, User user) {
-        user.Username = adminUpdateViewModel.Username;
-        user.FirstName = adminUpdateViewModel.FirstName;
-        user.LastName = adminUpdateViewModel.LastName;
-        user.Email = adminUpdateViewModel.Email;
+    public static User ToUser(this UserUpdateViewModel userUpdateViewModel, User user) {
+        user.Username = userUpdateViewModel.Username;
+        user.FirstName = userUpdateViewModel.FirstName;
+        user.LastName = userUpdateViewModel.LastName;
+        user.Email = userUpdateViewModel.Email;
         return user;
+    }
+
+    public static User ToUser(this UserRegisterViewModel userRegisterViewModel) {
+        return new User {
+            Username = userRegisterViewModel.Username,
+            Password = Argon2.Hash(userRegisterViewModel.Password),
+            FirstName = userRegisterViewModel.FirstName,
+            LastName = userRegisterViewModel.LastName,
+            Email = userRegisterViewModel.Email,
+            Role = "User"
+        };
     }
 }

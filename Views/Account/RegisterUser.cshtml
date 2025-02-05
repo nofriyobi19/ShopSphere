@@ -1,13 +1,16 @@
-@model AdminRegisterViewModel
+@model UserRegisterViewModel
 
-<h1>Register Admin</h1>
+<h1>Register User</h1>
 
-<form asp-route="saveAdminRegister" method="post">
+<form asp-route="saveUserRegister" method="post">
     <label asp-for="@Model.Username"></label>
     <input asp-for="@Model.Username">
     
     <label asp-for="@Model.Password"></label>
     <input type="password" asp-for="@Model.Password">
+
+    <label asp-for="@Model.ConfirmPassword"></label>
+    <input type="password" asp-for="@Model.ConfirmPassword">
 
     <label asp-for="@Model.FirstName"></label>
     <input asp-for="@Model.FirstName">

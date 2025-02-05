@@ -19,9 +19,14 @@ public class AccountController(AccountService service) : Controller {
         return View(new AdminRegisterViewModel());
     }
 
-    [Route("admin/update/{id}", Name = "updateAdmin")]
-    public async Task<IActionResult> UpdateAdmin(long id) {
-        AdminUpdateViewModel model = await _service.GetAdminUpdateAsync(id);
+    [Route("user/register", Name = "registerUser")]
+    public IActionResult RegisterUser() {
+        return View(new UserRegisterViewModel());
+    }
+
+    [Route("update/{id}")]
+    public async Task<IActionResult> Update(long id) {
+        UserUpdateViewModel model = await _service.GetUserUpdateAsync(id);
         return View(model);
     }
 
@@ -31,9 +36,15 @@ public class AccountController(AccountService service) : Controller {
         return RedirectToAction("index");
     }
 
-    [Route("admin/update/save", Name = "saveAdminUpdate")]
-    public async Task<IActionResult> SaveAdmin(AdminUpdateViewModel adminUpdateViewModel) {
-        await _service.SaveAdminAsync(adminUpdateViewModel);
+    [Route("user/register/save", Name = "saveUserRegister")]
+    public async Task<IActionResult> SaveUser(UserRegisterViewModel userRegisterViewModel) {
+        await _service.SaveUserAsync(userRegisterViewModel);
+        return RedirectToAction("index");
+    }
+
+    [Route("update/save", Name = "save")]
+    public async Task<IActionResult> SaveUser(UserUpdateViewModel userUpdateViewModel) {
+        await _service.SaveUserAsync(userUpdateViewModel);
         return RedirectToAction("index");
     }
 
