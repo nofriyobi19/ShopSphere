@@ -1,0 +1,15 @@
+@model CartUpsertViewModel
+
+<h1>Add To Cart</h1>
+
+<form asp-action="save" method="post">
+    <input type="hidden" asp-for="@Model.Id">
+
+    <input type="hidden" asp-for="@Model.ProductId">
+    
+    <label asp-for="@Model.Quantity"></label>
+    <input asp-for="@Model.Quantity">
+
+    <input type="submit">
+    <a asp-controller="product" asp-action="index">Cancel</a>
+</form>

@@ -10,7 +10,9 @@
 
 <div>
     <a asp-controller="home">Back to home</a>
-    <a asp-action="upsert">Add New Product</a>
+    @if (User.IsInRole("Admin")) {
+        <a asp-action="upsert">Add New Product</a>
+    }
 </div>
 
 <div>
@@ -59,8 +61,12 @@
                     <td>@product.Price</td>
                     <td>@product.Stock</td>
                     <td>
-                        <a asp-action="upsert" asp-route-id="@product.Id">Edit</a>
-                        <a asp-action="delete" asp-route-id="@product.Id">Delete</a>
+                        @if (User.IsInRole("Admin")) {
+                            <a asp-action="upsert" asp-route-id="@product.Id">Edit</a>
+                            <a asp-action="delete" asp-route-id="@product.Id">Delete</a>
+                        }else {
+                            <a asp-controller="cart" asp-action="upsert" asp-route-productId="@product.Id">Add To Cart</a>
+                        }
                     </td>
                 </tr>
             }

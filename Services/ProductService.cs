@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ShopSphere.Data.Models;
 using ShopSphere.Data.Repositories.Interfaces;
 using ShopSphere.Helpers;
 using ShopSphere.Models;
@@ -8,6 +9,7 @@ namespace ShopSphere.Services;
 
 public class ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository) {
     private readonly IProductRepository _productRepository = productRepository;
+
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
     public async Task<ProductGridViewModel> GetAllProductAsync(int pageNumber, int pageSize, string sortBy, string sort, string name, decimal minPrice, decimal maxPrice, long categoryId) {

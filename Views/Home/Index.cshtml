@@ -1,6 +1,11 @@
-<a asp-controller="category">Categories</a>
 <a asp-controller="product">Products</a>
-<a asp-controller="account">Accounts</a>
+@if (User.IsInRole("User")) {
+    <a asp-controller="cart">Cart</a>
+}
+@if (User.IsInRole("Admin")) {
+    <a asp-controller="account">Accounts</a>
+    <a asp-controller="category">Categories</a>
+}
 @if (!User.Identity!.IsAuthenticated) {
     <a asp-controller="account" asp-action="login">Login</a>
     <a asp-route="registerUser">Register</a>

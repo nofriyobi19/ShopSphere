@@ -6,7 +6,6 @@ using ShopSphere.Services;
 namespace ShopSphere.Controllers;
 
 [Route("product")]
-[Authorize(Roles = "Admin")]
 public class ProductController(ProductService service) : Controller {
     private readonly ProductService _service = service;
 
@@ -17,6 +16,7 @@ public class ProductController(ProductService service) : Controller {
     }
 
     [Route("upsert/{id?}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Upsert(long id) {
         ProductUpsertViewModel model = id == 0 ? new() : await _service.GetProductUpsertAsync(id);
         model.CategoryDropdown = await _service.GetCategoryDropdownAsync();
@@ -24,12 +24,14 @@ public class ProductController(ProductService service) : Controller {
     }
 
     [Route("save")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Save(ProductUpsertViewModel productUpsertViewModel) {
         await _service.SaveProductAsync(productUpsertViewModel);
         return RedirectToAction("index");
     }
 
     [Route("delete/{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(long id) {
         await _service.DeleteProductById(id);
         return RedirectToAction("index");
