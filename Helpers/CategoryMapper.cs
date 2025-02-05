@@ -28,9 +28,7 @@ public static class CategoryMapper {
     }
 
     public static GridViewModel<CategoryViewModel> ToCategoryViewModel(this GridViewModel<Category> categoryGrid) {
-        return new GridViewModel<CategoryViewModel> {
-            Content = [.. categoryGrid.Content.Select(e => e.ToCategoryViewModel())],
-            Pagination = categoryGrid.Pagination
-        };
+        var categoryViewModels = categoryGrid.Content.Select(e => e.ToCategoryViewModel()).ToList();
+        return new GridViewModel<CategoryViewModel>(categoryViewModels, categoryGrid.Pagination);
     }
 }

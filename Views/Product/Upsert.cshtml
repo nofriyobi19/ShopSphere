@@ -1,5 +1,11 @@
 @model ProductUpsertViewModel
 
+@if (Model.Id == 0) {
+    <h1>Add New Product</h1>
+}else {
+    <h1>Update Product</h1>
+}
+
 <form asp-action="save" method="post">
     <input type="hidden" asp-for="@Model.Id">
 

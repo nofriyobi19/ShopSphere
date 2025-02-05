@@ -9,12 +9,8 @@ public class CategoryService(ICategoryRepository categoryRepository) {
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
     public async Task<CategoryGridViewModel> GetAllCategoryAsync(int pageNumber, int pageSize, string sortBy, string sort, string name) {
-        PaginationViewModel pagination = new() {
-            PageNumber = pageNumber <= 0 ? 1 : pageNumber,
-            PageSize = pageSize <= 0 ? 10 : pageSize,
-            SortBy = sortBy is null || sortBy.Equals("entry", StringComparison.CurrentCultureIgnoreCase) ? "CategoryId" : sortBy,
-            Sort = sort is null || sort == "asc" ? "asc" : "desc"
-        };
+        sortBy = sortBy is null || sortBy == "" || sortBy.Equals("entry", StringComparison.CurrentCultureIgnoreCase) ? "CategoryId" : sortBy;
+        PaginationViewModel pagination = new(pageNumber, pageSize, sortBy, sort);
         var categoryGrid = await _categoryRepository.FindAllAsync(name, pagination);
         return new CategoryGridViewModel {
             Payload = categoryGrid.ToCategoryViewModel(),

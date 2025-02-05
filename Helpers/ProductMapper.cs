@@ -39,9 +39,7 @@ public static class ProductMapper {
     }
 
     public static GridViewModel<ProductViewModel> ToProductViewModel(this GridViewModel<Product> productGrid) {
-        return new GridViewModel<ProductViewModel> {
-            Content = [.. productGrid.Content.Select(e => e.ToProductViewModel())],
-            Pagination = productGrid.Pagination
-        };
+        var productViewModels = productGrid.Content.Select(e => e.ToProductViewModel()).ToList();
+        return new GridViewModel<ProductViewModel>(productViewModels, productGrid.Pagination);
     }
 }

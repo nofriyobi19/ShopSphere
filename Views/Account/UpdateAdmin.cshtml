@@ -1,0 +1,22 @@
+@model AdminUpdateViewModel
+
+<h1>Update Admin</h1>
+
+<form asp-route="saveAdminUpdate" method="post">
+    <input type="hidden" asp-for="@Model.Id">
+
+    <label asp-for="@Model.Username"></label>
+    <input asp-for="@Model.Username">
+
+    <label asp-for="@Model.FirstName"></label>
+    <input asp-for="@Model.FirstName">
+
+    <label asp-for="@Model.LastName"></label>
+    <input asp-for="@Model.LastName">
+
+    <label asp-for="@Model.Email"></label>
+    <input asp-for="@Model.Email">
+
+    <input type="submit">
+    <a asp-action="index">Cancel</a>
+</form>

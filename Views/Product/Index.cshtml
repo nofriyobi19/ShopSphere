@@ -15,12 +15,12 @@
 
 <div>
     <form>
-        <input type="search" name="name" placeholder="search by product name..." asp-for="@Model.Name">
+        <input type="search" placeholder="search by product name..." asp-for="@Model.Name">
         <label>Price</label>
         <input asp-for="@Model.MinPrice"> - <input asp-for="@Model.MaxPrice">
         <label asp-for="@Model.Category"></label>
         <select asp-for="@Model.Category" asp-items="@Model.CategoryDropdown">
-            <option value="0">Please select one</option>
+            <option value="0">All Category</option>
         </select>
         <input type="hidden" name="pageNumber" asp-for="@Model.Payload.Pagination.PageNumber">
         <label asp-for="@Model.Payload.Pagination.PageSize">Rows</label>

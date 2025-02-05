@@ -11,13 +11,8 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
     public async Task<ProductGridViewModel> GetAllProductAsync(int pageNumber, int pageSize, string sortBy, string sort, string name, decimal minPrice, decimal maxPrice, long categoryId) {
-        PaginationViewModel pagination = new() {
-            PageNumber = pageNumber <= 0 ? 1 : pageNumber,
-            PageSize = pageSize <= 0 ? 10 : pageSize,
-            SortBy = sortBy is null || sortBy.Equals("entry", StringComparison.CurrentCultureIgnoreCase) ? "ProductId" : sortBy,
-            Sort = sort is null || sort == "asc" ? "asc" : "desc"
-        };
-        if (maxPrice == 0) maxPrice = 9999999999;
+        sortBy = sortBy is null || sortBy == "" || sortBy.Equals("entry", StringComparison.CurrentCultureIgnoreCase) ? "ProductId" : sortBy;
+        PaginationViewModel pagination = new(pageNumber, pageSize, sortBy, sort);
         var products = await _productRepository.FindAllAsync(name, minPrice, maxPrice, categoryId, pagination);
         var categoryDropdown = await GetCategoryDropdownAsync();
         return new ProductGridViewModel {

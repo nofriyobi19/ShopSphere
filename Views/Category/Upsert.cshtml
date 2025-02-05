@@ -1,5 +1,11 @@
 @model CategoryViewModel
 
+@if (Model.Id == 0) {
+    <h1>Add New Category</h1>
+}else {
+    <h1>Update Category</h1>
+}
+
 <form method="post" asp-action="save">
     <input type="hidden" asp-for="@Model.Id">
     <label asp-for="@Model.Name"></label>

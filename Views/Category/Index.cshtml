@@ -15,7 +15,7 @@
 
 <div>
     <form>
-        <input type="search" name="name" placeholder="search by category name..." asp-for="@Model.Name">
+        <input type="search" placeholder="search by category name..." asp-for="@Model.Name">
         <input type="hidden" name="pageNumber" asp-for="@Model.Payload.Pagination.PageNumber">
         <label asp-for="@Model.Payload.Pagination.PageSize">Rows</label>
         <select name="pageSize" asp-for="@Model.Payload.Pagination.PageSize" asp-items="@Model.Payload.Pagination.PageSizeDropdown"></select>

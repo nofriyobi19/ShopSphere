@@ -12,10 +12,7 @@ public class CategoryRepository(ShopSphereContext shopSphereContext) : CrudRepos
     public async Task<GridViewModel<Category>> FindAllAsync(string name, PaginationViewModel pagination) {
         var categories = dbContext.Categories.Where(e => e.Name.Contains(name)).OrderBy($"{pagination.SortBy} {pagination.Sort}");
         pagination.TotalItems = categories.Count();
-        var pagingCategories = await categories.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).ToListAsync();
-        return new GridViewModel<Category> {
-            Content = pagingCategories,
-            Pagination = pagination
-        };
+        var categoryPaging = await categories.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).ToListAsync();
+        return new GridViewModel<Category>(categoryPaging, pagination);
     }
 }
