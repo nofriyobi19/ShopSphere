@@ -6,8 +6,8 @@ using ShopSphere.Services;
 namespace ShopSphere.Configurations;
 
 public static class DependencyInjection {
-    public static void AddServices(IServiceCollection services) {
-        services.AddDbContext<ShopSphereContext>();
+    public static void AddServices(IServiceCollection services, IConfigurationManager configuration) {
+        services.AddSqlServer<ShopSphereContext>(configuration.GetConnectionString("DefaultConnection"));
 
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
