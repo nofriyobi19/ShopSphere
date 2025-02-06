@@ -1,10 +1,12 @@
 <a asp-controller="product">Products</a>
 @if (User.IsInRole("User")) {
     <a asp-controller="cart">Cart</a>
+    <a asp-controller="order" asp-action="user">Orders</a>
 }
 @if (User.IsInRole("Admin")) {
-    <a asp-controller="account">Accounts</a>
+    <a asp-controller="order" asp-action="admin">Orders</a>
     <a asp-controller="category">Categories</a>
+    <a asp-controller="account">Accounts</a>
 }
 @if (!User.Identity!.IsAuthenticated) {
     <a asp-controller="account" asp-action="login">Login</a>

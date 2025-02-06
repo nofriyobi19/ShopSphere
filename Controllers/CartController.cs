@@ -37,4 +37,11 @@ public class CartController(CartService service) : Controller {
         await _service.DeleteCartByIdAsync(id);
         return RedirectToAction("index");
     }
+
+    [Route("checkout")]
+    public async Task<IActionResult> Checkout() {
+        var username = User.Claims.Single(e => e.Type == ClaimTypes.NameIdentifier).Value;
+        await _service.CheckoutAllCartAsync(username);
+        return RedirectToAction("user", "order");
+    }
 }

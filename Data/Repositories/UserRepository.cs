@@ -10,7 +10,7 @@ public class UserRepository(ShopSphereContext shopSphereContext) : CrudRepositor
 
     public async Task<GridViewModel<User>> FindAllAsync(string username, string name, string email, string role, PaginationViewModel pagination) {
         var users = dbContext.Users.Where(e => e.Username.Contains(username) && e.Email.Contains(email) && e.Role.Contains(role));
-        pagination.TotalItems = users.Count();
+        pagination.TotalItems = await users.CountAsync();
         var userPaging = await users.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).ToListAsync();
         return new GridViewModel<User>(userPaging, pagination);
     }

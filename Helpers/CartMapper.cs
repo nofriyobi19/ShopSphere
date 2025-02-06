@@ -34,4 +34,13 @@ public static class CartMapper {
             Quantity = cart.Quantity
         };
     }
+
+    public static OrderItem ToOrderItem(this Cart cart, long orderId) {
+        return new OrderItem {
+            OrderId = orderId,
+            ProductId = cart.ProductId,
+            Quantity = cart.Quantity,
+            Price = cart.Product.Price
+        };
+    }
 }

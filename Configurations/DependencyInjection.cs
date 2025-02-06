@@ -13,10 +13,13 @@ public static class DependencyInjection {
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICartRepository, CartRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
         services.AddScoped<CategoryService>();
         services.AddScoped<ProductService>();
         services.AddScoped<AccountService>();
         services.AddScoped<CartService>();
+        services.AddScoped<OrderService>();
     }
 }

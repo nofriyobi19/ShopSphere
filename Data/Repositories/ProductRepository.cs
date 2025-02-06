@@ -19,7 +19,7 @@ public class ProductRepository(ShopSphereContext shopSphereContext) : CrudReposi
 
     public async Task<GridViewModel<Product>> FindAllAsync(string name, decimal minPrice, decimal maxPrice, long categoryId, PaginationViewModel pagination) {
         var products = dbContext.Products.Include(e => e.Category).Where(e => e.Name.Contains(name) && e.Price >= minPrice && e.Price <= maxPrice && (categoryId == 0 || e.CategoryId == categoryId)).OrderBy($"{pagination.SortBy} {pagination.Sort}");
-        pagination.TotalItems = products.Count();
+        pagination.TotalItems = await products.CountAsync();
         var productPaging = await products.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).ToListAsync();
         return new GridViewModel<Product>(productPaging, pagination);
     }

@@ -1,0 +1,69 @@
+@model OrderGridViewModel
+
+@{
+    if (Model.Payload.Pagination.SortBy == "OrderId") Model.Payload.Pagination.SortBy = "entry";
+}
+
+<div>
+    <h1>Order List</h1>
+</div>
+
+<div>
+    <a asp-controller="home">Back to Home</a>
+</div>
+
+<div>
+    <form>
+        <input type="search" placeholder="search by buyer name..." asp-for="@Model.BuyerName">
+        <label>Order Date</label>
+        <input type="date" asp-for="@Model.StartDate"> - <input type="date" asp-for="@Model.EndDate">
+        <input type="hidden" name="pageNumber" asp-for="@Model.Payload.Pagination.PageNumber">
+        <label asp-for="@Model.Payload.Pagination.PageSize">Rows</label>
+        <select name="pageSize" asp-for="@Model.Payload.Pagination.PageSize" asp-items="@Model.Payload.Pagination.PageSizeDropdown"></select>
+        <label asp-for="@Model.Payload.Pagination.Sort">Sort</label>
+        <select name="sort" asp-for="@Model.Payload.Pagination.Sort" asp-items="@Model.Payload.Pagination.SortDropdown"></select>
+        <label asp-for="@Model.Payload.Pagination.SortBy">Sort By</label>
+        <select name="sortBy" asp-for="@Model.Payload.Pagination.SortBy">
+            <option value="entry">Entry</option>
+            <option value="orderDate">Order Date</option>
+        </select>
+        <input type="submit">
+    </form>
+</div>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Buyer Name</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Total Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Payload.Content) {
+                <tr>
+                    <td>@order.Buyer</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.Status</td>
+                    <td>@order.TotalPrice</td>
+                    <td>
+                        <a asp-action="upsert" asp-route-id="@order.Id">Edit</a>
+                        <a asp-action="delete" asp-route-id="@order.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    @for(int i = 1; i <= Model.Payload.Pagination.TotalPages; i++) {
+                        <a asp-route-pageNumber="@i" asp-route-pageSize="@Model.Payload.Pagination.PageSize" asp-route-sort="@Model.Payload.Pagination.Sort" asp-route-sortBy="@Model.Payload.Pagination.SortBy" asp-route-buyerName="@Model.BuyerName" asp-route-startDate="@Model.StartDate" asp-route-endDate="@Model.EndDate">@i</a>
+                    }
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
