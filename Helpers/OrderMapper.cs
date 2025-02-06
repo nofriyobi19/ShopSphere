@@ -19,4 +19,14 @@ public static class OrderMapper {
         var orders = orderGrid.Content.Select(e => e.ToOrderViewModel()).ToList();
         return new GridViewModel<OrderViewModel>(orders, orderGrid.Pagination);
     }
+
+    public static OrderDetailViewModel ToOrderDetailViewModel(this Order order) {
+        return new OrderDetailViewModel {
+            Buyer = $"{order.User.FirstName} {order.User.LastName}".Trim(),
+            OrderDate = order.OrderDate,
+            Status = order.Status,
+            TotalPrice = order.TotalPrice,
+            OrderItems = [.. order.OrderItems.Select(e => e.ToOrderItemViewModel())]
+        };
+    }
 }

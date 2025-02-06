@@ -30,4 +30,9 @@ public class OrderService(IOrderRepository orderRepository) {
             EndDate = endDate
         };
     }
+
+    public async Task<OrderDetailViewModel> GetOrderDetail(long orderId) {
+        var order = await _orderRepository.FindByIdAsync(orderId);
+        return order.ToOrderDetailViewModel();
+    }
 }

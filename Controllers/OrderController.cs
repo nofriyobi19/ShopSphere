@@ -32,4 +32,11 @@ public class OrderController(OrderService service) : Controller {
         if (orders.EndDate == SqlDateTime.MaxValue.Value) orders.EndDate = null;
         return View("UserIndex", orders);
     }
+
+    [Route("detail/{id}")]
+    [Authorize]
+    public async Task<IActionResult> Detail(long id) {
+        var order = await _service.GetOrderDetail(id);
+        return View(order);
+    }
 }

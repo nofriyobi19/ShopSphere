@@ -46,7 +46,9 @@
                     <td>@order.OrderDate</td>
                     <td>@order.Status</td>
                     <td>@order.TotalPrice</td>
-                    <td></td>
+                    <td>
+                        <a asp-action="detail" asp-route-id="@order.Id">Detail</a>
+                    </td>
                 </tr>
             }
         </tbody>

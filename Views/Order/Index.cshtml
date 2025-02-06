@@ -50,8 +50,7 @@
                     <td>@order.Status</td>
                     <td>@order.TotalPrice</td>
                     <td>
-                        <a asp-action="upsert" asp-route-id="@order.Id">Edit</a>
-                        <a asp-action="delete" asp-route-id="@order.Id">Delete</a>
+                        <a asp-action="detail" asp-route-id="@order.Id">Detail</a>
                     </td>
                 </tr>
             }

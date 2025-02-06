@@ -23,4 +23,8 @@ public class OrderRepository(ShopSphereContext shopSphereContext) : CrudReposito
         var orderPaging = await orders.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).ToListAsync();
         return new GridViewModel<Order>(orderPaging, pagination);
     }
+
+    public override async Task<Order> FindByIdAsync(long id) {
+        return await dbContext.Orders.Include(e => e.OrderItems).ThenInclude(e => e.Product).Include(e => e.User).SingleAsync(e => e.OrderId == id);
+    }
 }
