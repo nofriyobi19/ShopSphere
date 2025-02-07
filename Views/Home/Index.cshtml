@@ -1,3 +1,4 @@
+@*
 <a asp-controller="product">Products</a>
 @if (User.IsInRole("User")) {
     <a asp-controller="cart">Cart</a>
@@ -15,3 +16,14 @@
 @if (User.Identity!.IsAuthenticated) {
     <a asp-controller="account" asp-action="logout">Logout</a>
 }
+*@
+<partial name="_UserNavContent">
+
+<div class="content container">
+    <div class="bumper">
+        <h1>WELCOME TO SHOPSPHERE</h1>
+        <h2>Anything You Want!</h2>
+    </div>
+</div>
+
+<partial name="_FooterContent">

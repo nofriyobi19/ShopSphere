@@ -15,4 +15,6 @@ app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
 
+app.UseStaticFiles();
+
 app.Run();

@@ -1,0 +1,35 @@
+@model ProductGridViewModel
+
+@{
+    var navModel = new UserNavViewModel {
+        CategoryDropdown = Model.CategoryDropdown,
+        ProductName = Model.Name
+    };
+}
+
+<partial name="_UserNavContent" model="@navModel">
+
+<div class="content container">
+    <div class="product-card-container">
+        @foreach (var product in Model.Payload.Content) {
+            <div class="card">
+                <img src="" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Price</p>
+                    <a class="btn btn-info" asp-controller="cart" asp-action="upsert" asp-route-productId="@product.Id">Detail</a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="pagination-container">
+        @if (Model.Payload.Pagination.TotalPages > 1) {
+            @for(int i = 1; i <= Model.Payload.Pagination.TotalPages; i++) {
+                <a asp-route-pageNumber="@i" asp-route-pageSize="@Model.Payload.Pagination.PageSize" asp-route-sort="@Model.Payload.Pagination.Sort" asp-route-sortBy="@Model.Payload.Pagination.SortBy" asp-route-productName="@Model.Name" asp-route-category="@Model.Category">@i</a>
+            }
+        }
+    </div>
+</div>
+
+<partial name="_FooterContent">

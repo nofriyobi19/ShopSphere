@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 100px auto 100px;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a#company-logo {
+    position: absolute;
+    left: 1.5rem;
+}
+
+div#login-container {
+    position: absolute;
+    right: 1.5rem;
+}
+
+div.product-card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1rem;
+}
+
+.card {
+    min-width: 240px;
+}
+
+.search-product {
+    min-width: 360px;
+}

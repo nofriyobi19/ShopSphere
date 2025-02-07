@@ -21,5 +21,6 @@ public static class DependencyInjection {
         services.AddScoped<AccountService>();
         services.AddScoped<CartService>();
         services.AddScoped<OrderService>();
+        services.AddScoped<HomeService>();
     }
 }

@@ -168,3 +168,4 @@ C:\Users\ASUS\Documents\Project\ShopSphere\bin\Debug\net8.0\System.Linq.Dynamic.
 C:\Users\ASUS\Documents\Project\ShopSphere\bin\Debug\net8.0\Isopoh.Cryptography.Argon2.dll
 C:\Users\ASUS\Documents\Project\ShopSphere\bin\Debug\net8.0\Isopoh.Cryptography.Blake2b.dll
 C:\Users\ASUS\Documents\Project\ShopSphere\bin\Debug\net8.0\Isopoh.Cryptography.SecureArray.dll
+C:\Users\ASUS\Documents\Project\ShopSphere\bin\Debug\net8.0\ShopSphere.staticwebassets.runtime.json
