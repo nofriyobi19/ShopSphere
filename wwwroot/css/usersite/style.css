@@ -12,21 +12,6 @@ body {
     height: 100%;
 }
 
-a {
-    text-decoration: none;
-    color: black;
-}
-
-a#company-logo {
-    position: absolute;
-    left: 1.5rem;
-}
-
-div#login-container {
-    position: absolute;
-    right: 1.5rem;
-}
-
 div.product-card-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

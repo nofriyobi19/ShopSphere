@@ -1,14 +1,14 @@
 @model UserNavViewModel
 
-<nav class="d-flex justify-content-center align-items-center position-relative">
-    <a id="company-logo" asp-action="index">
+<nav class="navbar px-3">
+    <a class="navbar-brand" asp-action="index">
         <h1>ShopSphere</h1>
     </a>
-    <form class="d-flex gap-3" asp-action="search" method="get">
-        <select class="form-select" asp-items="@Model.CategoryDropdown" asp-for="@Model.Category">
+    <form class="d-flex" role="search" asp-action="search" method="get">
+        <select class="form-select me-3" asp-items="@Model.CategoryDropdown" asp-for="@Model.Category">
             <option value="0">Category</option>
         </select>
-        <div class="input-group search-product">
+        <div class="input-group search-product me-3">
             <span class="input-group-text">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
@@ -16,12 +16,12 @@
         </div>
         <input type="submit" class="btn btn-primary" value="Search">
     </form>
-    <div id="login-container">
+    <div>
         @if (User.Identity is not null) {
             @if (User.Identity.IsAuthenticated) {
-                <a asp-controller="account" asp-action="logout">Logout</a>
+                <a class="btn btn-secondary" asp-controller="account" asp-action="logout">Logout</a>
             } else {
-                <a asp-controller="account" asp-action="login">Login</a>
+                <a class="btn btn-success" asp-controller="account" asp-action="login">Login</a>
             }
         }
     </div>
