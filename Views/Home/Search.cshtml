@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
                     <p class="card-text">@product.Price</p>
-                    <a class="btn btn-info" asp-controller="cart" asp-action="upsert" asp-route-productId="@product.Id">Detail</a>
+                    <a class="btn btn-info" asp-controller="product" asp-action="detail" asp-route-id="@product.Id">Detail</a>
                 </div>
             </div>
         }

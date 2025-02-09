@@ -48,4 +48,10 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         await _productRepository.DeleteAsync(product);
         return product.ToProductViewModel();
     }
+
+    public async Task<ProductDetailViewModel> GetProductDetailAsync(long productId) {
+        var product = await _productRepository.FindByIdAsync(productId);
+        var categoryDropdown = await GetCategoryDropdownAsync();
+        return product.ToProductDetailViewModel(categoryDropdown);
+    }
 }

@@ -36,4 +36,10 @@ public class ProductController(ProductService service) : Controller {
         await _service.DeleteProductById(id);
         return RedirectToAction("index");
     }
+
+    [Route("detail/{id}")]
+    public async Task<IActionResult> Detail(long id) {
+        var product = await _service.GetProductDetailAsync(id);
+        return View(product);
+    }
 }

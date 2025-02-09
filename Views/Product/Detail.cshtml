@@ -1,0 +1,51 @@
+@model ProductDetailViewModel
+
+@{
+    var navModel = new UserNavViewModel {
+        CategoryDropdown = Model.CategoryDropdown
+    };
+}
+
+<partial name="_UserNavContent" model="@navModel">
+
+<div class="content container">
+    <div class="row">
+        <div class="col">
+            <h1>@Model.Name</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col col-md-auto">
+            <table class="product-detail-table">
+                <tr>
+                    <td>Category:</td>
+                    <td>@Model.Category</td>
+                </tr>
+                <tr>
+                    <td>Product Name:</td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td>@Model.Description</td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td>@Model.Price</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col col-md-auto">
+            <a class="btn btn-warning add-to-cart-button" asp-controller="cart" asp-action="upsert" asp-route-productId="@Model.Id">Add to Cart</a>
+        </div>
+        <div class="col col-md-auto">
+            <a class="btn btn-secondary" asp-controller="home" asp-action="search">Back to products</a>
+        </div>
+    </div>
+</div>
+
+<partial name="_FooterContent">

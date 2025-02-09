@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopSphere.Data.Models;
 using ShopSphere.Models;
 using ShopSphere.Models.Products;
@@ -41,5 +42,16 @@ public static class ProductMapper {
     public static GridViewModel<ProductViewModel> ToProductViewModel(this GridViewModel<Product> productGrid) {
         var productViewModels = productGrid.Content.Select(e => e.ToProductViewModel()).ToList();
         return new GridViewModel<ProductViewModel>(productViewModels, productGrid.Pagination);
+    }
+
+    public static ProductDetailViewModel ToProductDetailViewModel(this Product product, List<SelectListItem> categoryDropdown) {
+        return new ProductDetailViewModel {
+            Id = product.ProductId,
+            Category = product.Category.Name,
+            Name = product.Name,
+            Description = product.Description,
+            Price = product.Price,
+            CategoryDropdown = categoryDropdown
+        };
     }
 }

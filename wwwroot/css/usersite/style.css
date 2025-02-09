@@ -41,3 +41,11 @@ div.product-card-container {
 .search-product {
     min-width: 360px;
 }
+
+.product-detail-table tr {
+    line-height: 2.5rem;
+}
+
+.product-detail-table td:nth-child(even) {
+    padding-left: 2.5rem;
+}
