@@ -7,7 +7,7 @@ public class ProductViewModel {
 
     public string? Description { get; set; }
 
-    public decimal Price { get; set; }
+    public string Price { get; set; } = null!;
 
     public int Stock { get; set; }
 

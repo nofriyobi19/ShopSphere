@@ -1,4 +1,6 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ShopSphere.Configurations;
 using ShopSphere.Data.Models;
 using ShopSphere.Models;
 using ShopSphere.Models.Products;
@@ -11,7 +13,7 @@ public static class ProductMapper {
             Id = product.ProductId,
             Name = product.Name,
             Description = product.Description,
-            Price = product.Price,
+            Price = string.Format(CultureInfo.GetCultureInfo(CurrencyCulture.CultureCode), "{0:C}", product.Price),
             Stock = product.Stock,
             CategoryName = product.Category.Name
         };
@@ -50,7 +52,7 @@ public static class ProductMapper {
             Category = product.Category.Name,
             Name = product.Name,
             Description = product.Description,
-            Price = product.Price,
+            Price = string.Format(CultureInfo.GetCultureInfo(CurrencyCulture.CultureCode), "{0:C}", product.Price),
             CategoryDropdown = categoryDropdown
         };
     }

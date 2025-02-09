@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WaEBTHN3lZYNxK+Q33/3nNsFyIvkt9yxyQerlHhrMrY=",
+  "Hash": "HshRJW/GG6oIcMKDrkkGG7MDnu5zKzShwaKs57SBdbo=",
   "Source": "ShopSphere",
   "BasePath": "_content/ShopSphere",
   "Mode": "Default",
@@ -262,6 +262,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\fontawesome\\webfonts\\fa-solid-900.woff2"
+    },
+    {
+      "Identity": "C:\\Users\\ASUS\\Documents\\Project\\ShopSphere\\wwwroot\\Web.config",
+      "SourceId": "ShopSphere",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ASUS\\Documents\\Project\\ShopSphere\\wwwroot\\",
+      "BasePath": "_content/ShopSphere",
+      "RelativePath": "Web.config",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Web.config"
     }
   ]
 }

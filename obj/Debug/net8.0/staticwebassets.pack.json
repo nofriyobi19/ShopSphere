@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\ASUS\\Documents\\Project\\ShopSphere\\wwwroot\\Web.config",
+      "PackagePath": "staticwebassets\\Web.config"
+    },
+    {
       "Id": "C:\\Users\\ASUS\\Documents\\Project\\ShopSphere\\wwwroot\\css\\usersite\\style.css",
       "PackagePath": "staticwebassets\\css\\usersite\\style.css"
     },
