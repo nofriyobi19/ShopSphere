@@ -29,7 +29,7 @@ public class CartController(CartService service) : Controller {
         var username = User.Claims.Single(e => e.Type == ClaimTypes.NameIdentifier).Value;
         await _service.SaveCartAsync(username, cartUpsertViewModel);
         if (cartUpsertViewModel.Id != 0) return RedirectToAction("index");
-        return RedirectToAction("index", "product");
+        return RedirectToAction("search", "home");
     }
 
     [Route("delete/{id}")]

@@ -1,5 +1,5 @@
 namespace ShopSphere.Configurations;
 
-public static class CurrencyCulture {
-    public static string CultureCode => "id-ID";
+public static class CultureConfig {
+    public static string CurrencyCulture => "id-ID";
 }

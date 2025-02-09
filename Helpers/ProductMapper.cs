@@ -13,7 +13,7 @@ public static class ProductMapper {
             Id = product.ProductId,
             Name = product.Name,
             Description = product.Description,
-            Price = string.Format(CultureInfo.GetCultureInfo(CurrencyCulture.CultureCode), "{0:C}", product.Price),
+            Price = string.Format(CultureInfo.GetCultureInfo(CultureConfig.CurrencyCulture), "{0:C}", product.Price),
             Stock = product.Stock,
             CategoryName = product.Category.Name
         };
@@ -52,7 +52,7 @@ public static class ProductMapper {
             Category = product.Category.Name,
             Name = product.Name,
             Description = product.Description,
-            Price = string.Format(CultureInfo.GetCultureInfo(CurrencyCulture.CultureCode), "{0:C}", product.Price),
+            Price = string.Format(CultureInfo.GetCultureInfo(CultureConfig.CurrencyCulture), "{0:C}", product.Price),
             CategoryDropdown = categoryDropdown
         };
     }

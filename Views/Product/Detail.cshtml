@@ -40,7 +40,25 @@
     
     <div class="row">
         <div class="col col-md-auto">
-            <a class="btn btn-warning add-to-cart-button" asp-controller="cart" asp-action="upsert" asp-route-productId="@Model.Id">Add to Cart</a>
+            <form asp-controller="cart" asp-action="save" method="post">
+                @if (User.Identity!.IsAuthenticated) {
+                    <fieldset>
+                        <input type="hidden" name="productId" asp-for="@Model.CartUpsert!.ProductId">
+                        <div class="input-group">
+                            <input class="form-control" name="quantity" asp-for="@Model.CartUpsert!.Quantity">
+                            <button type="submit" class="btn btn-warning">Add to Cart</button>
+                        </div>
+                    </fieldset>
+                } else {
+                    <fieldset disabled>
+                        <div class="input-group">
+                            <input class="form-control" asp-for="@Model.CartUpsert!.Quantity">
+                            <button type="submit" class="btn btn-warning">Add to Cart</button>
+                        </div>
+                    </fieldset>
+                    <span class="text-danger fs-6 fst-italic">*please login before add to cart*</span>
+                }
+            </form>
         </div>
         <div class="col col-md-auto">
             <a class="btn btn-secondary" asp-controller="home" asp-action="search">Back to products</a>

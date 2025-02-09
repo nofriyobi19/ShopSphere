@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShopSphere.Models.Cart;
 using ShopSphere.Models.Products;
 using ShopSphere.Services;
 
@@ -40,6 +41,7 @@ public class ProductController(ProductService service) : Controller {
     [Route("detail/{id}")]
     public async Task<IActionResult> Detail(long id) {
         var product = await _service.GetProductDetailAsync(id);
+        product.CartUpsert = new CartUpsertViewModel(id);
         return View(product);
     }
 }

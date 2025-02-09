@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ShopSphere.Models.Cart;
 
 namespace ShopSphere.Models.Products;
 
@@ -12,6 +13,8 @@ public class ProductDetailViewModel {
     public string? Description { get; set; }
 
     public string Price { get; set; } = null!;
+
+    public CartUpsertViewModel? CartUpsert { get; set; }
 
     public required List<SelectListItem> CategoryDropdown { get; set; }
 }
