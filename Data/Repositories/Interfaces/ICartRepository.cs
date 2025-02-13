@@ -9,4 +9,6 @@ public interface ICartRepository : ICrudRepository<Cart, long> {
     Task<List<Cart>> FindAllAsync(long userId);
 
     Task<Cart?> FindByProductId(long productId);
+
+    Task<int> CountByUsername(string username);
 }

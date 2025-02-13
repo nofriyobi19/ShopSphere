@@ -26,4 +26,8 @@ public class CartRepository(ShopSphereContext shopSphereContext) : CrudRepositor
     public async Task<Cart?> FindByProductId(long productId) {
         return await dbContext.Carts.SingleOrDefaultAsync(e => e.ProductId == productId);
     }
+
+    public async Task<int> CountByUsername(string username) {
+        return await dbContext.Carts.Include(e => e.User).Where(e => e.User.Username == username).CountAsync();
+    }
 }

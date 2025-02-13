@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ShopSphere.Data.Repositories;
 using ShopSphere.Data.Repositories.Interfaces;
 using ShopSphere.Helpers;
 using ShopSphere.Models;
@@ -6,10 +7,12 @@ using ShopSphere.Models.Products;
 
 namespace ShopSphere.Services;
 
-public class HomeService(ICategoryRepository categoryRepository, IProductRepository productRepository) {
+public class HomeService(ICategoryRepository categoryRepository, IProductRepository productRepository, ICartRepository cartRepository) {
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
     private readonly IProductRepository _productRepository = productRepository;
+
+    private readonly ICartRepository _cartRepository = cartRepository;
 
     public async Task<List<SelectListItem>> GetCategoryDropdownAsync() {
         var categories = await _categoryRepository.FindAllAsync();
@@ -33,5 +36,9 @@ public class HomeService(ICategoryRepository categoryRepository, IProductReposit
             Category = categoryId,
             CategoryDropdown = categoryDropdown
         };
+    }
+
+    public async Task<int> CountCartItemByUsername(string username) {
+        return await _cartRepository.CountByUsername(username);
     }
 }

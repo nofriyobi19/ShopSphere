@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShopSphere")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+83954f8f971d773a64b1255af7effbb6bfee6941")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92b1d6db805baed6bdf05e817c724e146e2b3245")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShopSphere")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShopSphere")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

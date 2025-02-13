@@ -8,4 +8,6 @@ public class UserNavViewModel {
     public string ProductName { get; set; } = null!;
 
     public long Category { get; set; }
+
+    public int TotalCartItem { get; set; }
 }

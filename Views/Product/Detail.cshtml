@@ -1,12 +1,6 @@
 @model ProductDetailViewModel
 
-@{
-    var navModel = new UserNavViewModel {
-        CategoryDropdown = Model.CategoryDropdown
-    };
-}
-
-<partial name="_UserNavContent" model="@navModel">
+<partial name="_UserNavContent" model="@Model.UserNavigation">
 
 <div class="content container">
     <div class="row">

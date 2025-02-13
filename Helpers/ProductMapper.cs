@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopSphere.Configurations;
 using ShopSphere.Data.Models;
 using ShopSphere.Models;
+using ShopSphere.Models.Home;
 using ShopSphere.Models.Products;
 
 namespace ShopSphere.Helpers;
@@ -53,7 +54,9 @@ public static class ProductMapper {
             Name = product.Name,
             Description = product.Description,
             Price = string.Format(CultureInfo.GetCultureInfo(CultureConfig.CurrencyCulture), "{0:C}", product.Price),
-            CategoryDropdown = categoryDropdown
+            UserNavigation = new UserNavViewModel {
+                CategoryDropdown = categoryDropdown
+            }
         };
     }
 }

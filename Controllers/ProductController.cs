@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopSphere.Models.Cart;
@@ -42,6 +43,12 @@ public class ProductController(ProductService service) : Controller {
     public async Task<IActionResult> Detail(long id) {
         var product = await _service.GetProductDetailAsync(id);
         product.CartUpsert = new CartUpsertViewModel(id);
+
+        if (User.Identity!.IsAuthenticated) {
+            var username = User.Claims.Single(e => e.Type == ClaimTypes.NameIdentifier).Value;
+            product.UserNavigation!.TotalCartItem = await _service.CountCartItemByUsername(username);
+        }
+
         return View(product);
     }
 }

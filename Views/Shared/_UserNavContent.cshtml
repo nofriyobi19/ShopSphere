@@ -16,7 +16,13 @@
         </div>
         <input type="submit" class="btn btn-primary" value="Search">
     </form>
-    <div>
+    <div class="d-flex align-items-center gap-3">
+        <div class="position-relative">
+            <i class="fa-solid fa-cart-shopping fa-xl"></i>
+            @if (Model.TotalCartItem > 0) {
+                <span class="badge position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">@Model.TotalCartItem</span>
+            }
+        </div>
         @if (User.Identity is not null) {
             @if (User.Identity.IsAuthenticated) {
                 <a class="btn btn-secondary" asp-controller="account" asp-action="logout">Logout</a>

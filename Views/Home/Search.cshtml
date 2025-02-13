@@ -1,18 +1,11 @@
-@model ProductGridViewModel
+@model SearchViewModel
 
-@{
-    var navModel = new UserNavViewModel {
-        CategoryDropdown = Model.CategoryDropdown,
-        ProductName = Model.Name
-    };
-}
-
-<partial name="_UserNavContent" model="@navModel">
+<partial name="_UserNavContent" model="@Model.Navigation">
 
 <div class="content container">
     <div class="row">
         <div class="col product-card-container">
-            @foreach (var product in Model.Payload.Content) {
+            @foreach (var product in Model.Products.Payload.Content) {
                 <div class="card">
                     <img src="" alt="">
                     <div class="card-body">
@@ -29,28 +22,28 @@
         <div class="col col-md-auto">
             <nav aria-label="product pagination">
                 <ul class="pagination">
-                    @if (Model.Payload.Pagination.TotalPages > 1) {
-                        @if (Model.Payload.Pagination.PageNumber > 1) {
+                    @if (Model.Products.Payload.Pagination.TotalPages > 1) {
+                        @if (Model.Products.Payload.Pagination.PageNumber > 1) {
                             <li class="page-item">
-                                <a class="page-link" asp-route-pageNumber="@(Model.Payload.Pagination.PageNumber - 1)" asp-route-productName="@Model.Name" asp-route-category="@Model.Category">
+                                <a class="page-link" asp-route-pageNumber="@(Model.Products.Payload.Pagination.PageNumber - 1)" asp-route-productName="@Model.Products.Name" asp-route-category="@Model.Products.Category">
                                     <i class="fa-solid fa-angle-left"></i>
                                 </a>
                             </li>
                         }
-                        @for(int i = 1; i <= Model.Payload.Pagination.TotalPages; i++) {
-                            @if (i == Model.Payload.Pagination.PageNumber) {
+                        @for(int i = 1; i <= Model.Products.Payload.Pagination.TotalPages; i++) {
+                            @if (i == Model.Products.Payload.Pagination.PageNumber) {
                                 <li class="page-item active">
-                                    <a class="page-link" asp-route-pageNumber="@i" asp-route-productName="@Model.Name" asp-route-category="@Model.Category">@i</a>
+                                    <a class="page-link" asp-route-pageNumber="@i" asp-route-productName="@Model.Products.Name" asp-route-category="@Model.Products.Category">@i</a>
                                 </li>
                             } else {
                                 <li class="page-item">
-                                    <a class="page-link" asp-route-pageNumber="@i" asp-route-productName="@Model.Name" asp-route-category="@Model.Category">@i</a>
+                                    <a class="page-link" asp-route-pageNumber="@i" asp-route-productName="@Model.Products.Name" asp-route-category="@Model.Products.Category">@i</a>
                                 </li>
                             }
                         }
-                        @if (Model.Payload.Pagination.PageNumber < Model.Payload.Pagination.TotalPages) {
+                        @if (Model.Products.Payload.Pagination.PageNumber < Model.Products.Payload.Pagination.TotalPages) {
                             <li class="page-item">
-                                <a class="page-link" asp-route-pageNumber="@(Model.Payload.Pagination.PageNumber + 1)" asp-route-productName="@Model.Name" asp-route-category="@Model.Category">
+                                <a class="page-link" asp-route-pageNumber="@(Model.Products.Payload.Pagination.PageNumber + 1)" asp-route-productName="@Model.Products.Name" asp-route-category="@Model.Products.Category">
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
                             </li>

@@ -7,10 +7,12 @@ using ShopSphere.Models.Products;
 
 namespace ShopSphere.Services;
 
-public class ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository) {
+public class ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository, ICartRepository cartRepository) {
     private readonly IProductRepository _productRepository = productRepository;
 
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
+
+    private readonly ICartRepository _cartRepository = cartRepository;
 
     public async Task<ProductGridViewModel> GetAllProductAsync(int pageNumber, int pageSize, string sortBy, string sort, string name, decimal minPrice, decimal maxPrice, long categoryId) {
         sortBy = sortBy is null || sortBy == "" || sortBy.Equals("entry", StringComparison.CurrentCultureIgnoreCase) ? "ProductId" : sortBy;
@@ -53,5 +55,9 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         var product = await _productRepository.FindByIdAsync(productId);
         var categoryDropdown = await GetCategoryDropdownAsync();
         return product.ToProductDetailViewModel(categoryDropdown);
+    }
+
+    public async Task<int> CountCartItemByUsername(string username) {
+        return await _cartRepository.CountByUsername(username);
     }
 }
