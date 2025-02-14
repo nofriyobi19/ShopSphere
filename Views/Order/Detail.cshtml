@@ -1,55 +1,48 @@
 @model OrderDetailViewModel
 
-<div>
-    <h1>Order Detail</h1>
-</div>
+<partial name="_UserNavContent" model="@Model.UserNavigation"></partial>
 
-<div>
-    <table>
-        @if (User.IsInRole("Admin")){
-            <tr>
-                <td>Buyer Name:</td>
-                <td>@Model.Buyer</td>
-            </tr>
-        }
-        <tr>
-            <td>Order Date:</td>
-            <td>@Model.OrderDate</td>
-        </tr>
-        <tr>
-            <td>Total Price:</td>
-            <td>@Model.TotalPrice</td>
-        </tr>
-        <tr>
-            <td>Status:</td>
-            <td>@Model.Status</td>
-        </tr>
-    </table>
-</div>
+<div class="content container">
+    <div class="row">
+        <h1>Order Detail</h1>
+    </div>
 
-<div>
-    <h2>Product List</h2>
-</div>
-
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.OrderItems.Count; i++) {
+    <div class="row mt-3">
+        <div class="col col-md-auto">
+            <table>
+                @if (User.IsInRole("Admin")){
+                    <tr>
+                        <td>Buyer Name:</td>
+                        <td>@Model.Buyer</td>
+                    </tr>
+                }
                 <tr>
-                    <td>@(i + 1)</td>
-                    <td>@Model.OrderItems[i].ProductName</td>
-                    <td>@Model.OrderItems[i].Price</td>
-                    <td>@Model.OrderItems[i].Quantity</td>
+                    <td>Order Date:</td>
+                    <td>@Model.OrderDate</td>
                 </tr>
-            }
-        </tbody>
-    </table>
+                <tr>
+                    <td>Total Price:</td>
+                    <td>@Model.TotalPrice</td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td>@Model.Status</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        @foreach (var orderItem in Model.OrderItems) {
+            <div class="card mb-3 flex-row align-items-center">
+                <div class="card-body">
+                    <h5 class="card-title">@orderItem.ProductName</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">@orderItem.Price</h6>
+                    <p class="card-text">Quantity: @orderItem.Quantity</p>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+<partial name="_FooterContent"></partial>

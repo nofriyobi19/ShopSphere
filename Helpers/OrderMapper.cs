@@ -27,7 +27,7 @@ public static class OrderMapper {
             Buyer = $"{order.User.FirstName} {order.User.LastName}".Trim(),
             OrderDate = order.OrderDate,
             Status = order.Status,
-            TotalPrice = order.TotalPrice,
+            TotalPrice = string.Format(CultureInfo.GetCultureInfo(CultureConfig.CurrencyCulture), "{0:C}", order.TotalPrice),
             OrderItems = [.. order.OrderItems.Select(e => e.ToOrderItemViewModel())]
         };
     }

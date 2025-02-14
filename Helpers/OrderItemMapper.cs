@@ -1,3 +1,5 @@
+using System.Globalization;
+using ShopSphere.Configurations;
 using ShopSphere.Data.Models;
 using ShopSphere.Models.OrderItem;
 
@@ -7,7 +9,7 @@ public static class OrderItemMapper {
     public static OrderItemViewModel ToOrderItemViewModel(this OrderItem orderItem) {
         return new OrderItemViewModel {
             ProductName = orderItem.Product.Name,
-            Price = orderItem.Product.Price,
+            Price = string.Format(CultureInfo.GetCultureInfo(CultureConfig.CurrencyCulture), "{0:C}", orderItem.Price),
             Quantity = orderItem.Quantity
         };
     }

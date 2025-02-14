@@ -1,9 +1,5 @@
 @model UserOrderGridViewModel
 
-@{
-    if (Model.Payload.Pagination.SortBy == "OrderId") Model.Payload.Pagination.SortBy = "entry";
-}
-
 <partial name="_UserNavContent" model="@Model.Navigation"></partial>
 
 <div class="content container">

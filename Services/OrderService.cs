@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopSphere.Data.Repositories.Interfaces;
 using ShopSphere.Helpers;
 using ShopSphere.Models;
@@ -29,15 +30,11 @@ public class OrderService(IOrderRepository orderRepository, ICategoryRepository 
         sortBy = sortBy is null || sortBy == "" || sortBy.Equals("entry", StringComparison.CurrentCultureIgnoreCase) ? "OrderId" : sortBy;
         PaginationViewModel pagination = new(pageNumber, pageSize, sortBy, sort);
         var orders = await _orderRepository.FindAllByUsernameAsync(username, startDate, endDate, pagination);
-        var categories = await _categoryRepository.FindAllAsync();
         return new UserOrderGridViewModel {
             Payload = orders.ToOrderViewModel(),
             StartDate = startDate,
             EndDate = endDate,
-            Navigation = new UserNavViewModel {
-                CategoryDropdown = [.. categories.Select(e => e.ToSelectListItem())],
-                TotalCartItem = await _cartRepository.CountByUsername(username)
-            }
+            Navigation = await GetUserNavigation(username)
         };
     }
 
@@ -45,4 +42,15 @@ public class OrderService(IOrderRepository orderRepository, ICategoryRepository 
         var order = await _orderRepository.FindByIdAsync(orderId);
         return order.ToOrderDetailViewModel();
     }
+
+    public async Task<UserNavViewModel> GetUserNavigation(string username) {
+        var categories = await _categoryRepository.FindAllAsync();
+        var cartItemCount = await _cartRepository.CountByUsername(username);
+        return new() {
+            CategoryDropdown = [.. categories.Select(e => e.ToSelectListItem())],
+            TotalCartItem = cartItemCount
+        };
+    }
+
+
 }

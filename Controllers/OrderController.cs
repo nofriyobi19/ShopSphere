@@ -37,6 +37,10 @@ public class OrderController(OrderService service) : Controller {
     [Authorize]
     public async Task<IActionResult> Detail(long id) {
         var order = await _service.GetOrderDetail(id);
+        if (User.IsInRole("User")) {
+            var username = User.Claims.Single(e => e.Type == ClaimTypes.NameIdentifier).Value;
+            order.UserNavigation = await _service.GetUserNavigation(username);
+        }
         return View(order);
     }
 }
