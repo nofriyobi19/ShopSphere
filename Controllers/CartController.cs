@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopSphere.Models.Cart;
+using ShopSphere.Models.Home;
 using ShopSphere.Services;
 
 namespace ShopSphere.Controllers;
@@ -14,8 +15,20 @@ public class CartController(CartService service) : Controller {
     [Route("")]
     public async Task<IActionResult> Index(int pageNumber, int pageSize, string sortBy, string sort) {
         var username = User.Claims.Single(e => e.Type == ClaimTypes.NameIdentifier).Value;
+
         var cartList = await _service.GetAllUserCartItem(pageNumber, pageSize, sortBy, sort, username);
-        return View(cartList);
+
+        var userNavigation = new UserNavViewModel {
+            CategoryDropdown = await _service.GetCategoryDropdown(),
+            TotalCartItem = await _service.CountCartItemByUsername(username)
+        };
+
+        var model = new CartGridViewModel {
+            Payload = cartList,
+            Navigation = userNavigation
+        };
+
+        return View(model);
     }
 
     [Route("upsert/{id?}")]

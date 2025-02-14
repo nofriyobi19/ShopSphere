@@ -1,55 +1,44 @@
-@model GridViewModel<CartViewModel>
+@model CartGridViewModel
 
-<div>
-    <h1>Cart List</h1>
+<partial name="_UserNavContent" model="@Model.Navigation"></partial>
+
+<div class="content container">
+    <div class="row">
+        <h1>My Cart</h1>
+    </div>
+
+    <div class="row mt-3">
+        @foreach (var cart in Model.Payload.Content) {
+            <div class="card mb-3 flex-row align-items-center">
+                <div class="card-body">
+                    <h5 class="card-title">@cart.ProductName</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">@cart.Price</h6>
+                    <p class="card-text">Quantity: @cart.Quantity</p>
+                </div>
+                <div class="card-action d-flex gap-3">
+                    <form asp-controller="cart" asp-action="save" method="post">
+                        <input type="hidden" name="id" asp-for="@cart.Id">
+                        <input type="hidden" name="productId" asp-for="@cart.CartUpsert.ProductId">
+                        <div class="input-group">
+                            <input class="form-control" name="quantity" asp-for="@cart.CartUpsert.Quantity">
+                            <button type="submit" class="btn btn-warning">Save</button>
+                        </div>
+                    </form>
+                    <a class="btn btn-danger" asp-action="delete" asp-route-id="@cart.Id">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.Payload.Content.Count > 0) {
+        <div class="row">
+            <div class="col col-md-auto">
+                <a class="btn btn-warning" asp-action="checkout">Checkout All Item</a>
+            </div>
+        </div>
+    }
 </div>
 
-<div>
-    <a asp-controller="home">Back to Home</a>
-</div>
-
-<div>
-    <form>
-        <input type="hidden" name="pageNumber" asp-for="@Model.Pagination.PageNumber">
-        <label asp-for="@Model.Pagination.PageSize">Rows</label>
-        <select name="pageSize" asp-for="@Model.Pagination.PageSize" asp-items="@Model.Pagination.PageSizeDropdown"></select>
-        <input type="submit">
-    </form>
-</div>
-
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cart in Model.Content) {
-                <tr>
-                    <td>@cart.ProductName</td>
-                    <td>@cart.Quantity</td>
-                    <td>
-                        <a asp-action="upsert" asp-route-id="@cart.Id">Edit</a>
-                        <a asp-action="delete" asp-route-id="@cart.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="2">
-                    @for(int i = 1; i <= Model.Pagination.TotalPages; i++) {
-                        <a asp-route-pageNumber="@i" asp-route-pageSize="@Model.Pagination.PageSize">@i</a>
-                    }
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
-
-<div>
-    <a asp-action="checkout">Checkout All Item</a>
-</div>
+<partial name="_FooterContent">

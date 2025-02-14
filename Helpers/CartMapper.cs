@@ -1,3 +1,5 @@
+using System.Globalization;
+using ShopSphere.Configurations;
 using ShopSphere.Data.Models;
 using ShopSphere.Models;
 using ShopSphere.Models.Cart;
@@ -9,7 +11,13 @@ public static class CartMapper {
         return new CartViewModel {
             Id = cart.CartId,
             ProductName = cart.Product.Name,
-            Quantity = cart.Quantity
+            Price = string.Format(CultureInfo.GetCultureInfo(CultureConfig.CurrencyCulture), "{0:C}", cart.Product.Price),
+            Quantity = cart.Quantity,
+            CartUpsert = new CartUpsertViewModel {
+                Id = cart.CartId,
+                ProductId = cart.ProductId,
+                Quantity = cart.Quantity
+            }
         };
     }
 

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopSphere.Data;
 using ShopSphere.Data.Models;
 using ShopSphere.Data.Repositories.Interfaces;
@@ -8,7 +9,7 @@ using ShopSphere.Models.Orders;
 
 namespace ShopSphere.Services;
 
-public class CartService(ICartRepository cartRepository, IUserRepository userRepository, IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, ShopSphereContext shopSphereContext) {
+public class CartService(ICartRepository cartRepository, IUserRepository userRepository, IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, ShopSphereContext shopSphereContext, ICategoryRepository categoryRepository) {
     private readonly ICartRepository _cartRepository = cartRepository;
 
     private readonly IUserRepository _userRepository = userRepository;
@@ -16,6 +17,8 @@ public class CartService(ICartRepository cartRepository, IUserRepository userRep
     private readonly IOrderRepository _orderRepository = orderRepository;
 
     private readonly IOrderItemRepository _orderItemRepository = orderItemRepository;
+
+    private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
     private readonly ShopSphereContext dbContext = shopSphereContext;
 
@@ -79,5 +82,14 @@ public class CartService(ICartRepository cartRepository, IUserRepository userRep
         }
 
         return [.. cartList.Select(e => e.ToCartViewModel())];
+    }
+
+    public async Task<List<SelectListItem>> GetCategoryDropdown() {
+        var categories = await _categoryRepository.FindAllAsync();
+        return [.. categories.Select(e => e.ToSelectListItem())];
+    }
+
+    public async Task<int> CountCartItemByUsername(string username) {
+        return await _cartRepository.CountByUsername(username);
     }
 }

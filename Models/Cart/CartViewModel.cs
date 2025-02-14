@@ -5,5 +5,9 @@ public class CartViewModel {
 
     public string ProductName { get; set; } = null!;
 
+    public string Price { get; set; } = null!;
+
     public int Quantity { get; set; }
+
+    public required CartUpsertViewModel CartUpsert { get; set; }
 }
