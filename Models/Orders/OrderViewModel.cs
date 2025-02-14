@@ -5,7 +5,7 @@ public class OrderViewModel {
 
     public string Buyer { get; set; } = null!;
 
-    public decimal TotalPrice { get; set; }
+    public string TotalPrice { get; set; } = null!;
 
     public string Status { get; set; } = null!;
 

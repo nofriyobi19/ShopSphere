@@ -1,3 +1,5 @@
+using ShopSphere.Models.Home;
+
 namespace ShopSphere.Models.Orders;
 
 public class UserOrderGridViewModel {
@@ -6,4 +8,6 @@ public class UserOrderGridViewModel {
     public DateTime? StartDate { get; set; }
 
     public DateTime? EndDate { get; set; }
+
+    public required UserNavViewModel Navigation { get; set; }
 }

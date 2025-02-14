@@ -1,12 +1,17 @@
 using ShopSphere.Data.Repositories.Interfaces;
 using ShopSphere.Helpers;
 using ShopSphere.Models;
+using ShopSphere.Models.Home;
 using ShopSphere.Models.Orders;
 
 namespace ShopSphere.Services;
 
-public class OrderService(IOrderRepository orderRepository) {
+public class OrderService(IOrderRepository orderRepository, ICategoryRepository categoryRepository, ICartRepository cartRepository) {
     private readonly IOrderRepository _orderRepository = orderRepository;
+
+    private readonly ICategoryRepository _categoryRepository = categoryRepository;
+
+    private readonly ICartRepository _cartRepository = cartRepository;
 
     public async Task<OrderGridViewModel> GetAllOrderAsync(int pageNumber, int pageSize, string sortBy, string sort, string buyerName, DateTime startDate, DateTime endDate) {
         sortBy = sortBy is null || sortBy == "" || sortBy.Equals("entry", StringComparison.CurrentCultureIgnoreCase) ? "OrderId" : sortBy;
@@ -24,10 +29,15 @@ public class OrderService(IOrderRepository orderRepository) {
         sortBy = sortBy is null || sortBy == "" || sortBy.Equals("entry", StringComparison.CurrentCultureIgnoreCase) ? "OrderId" : sortBy;
         PaginationViewModel pagination = new(pageNumber, pageSize, sortBy, sort);
         var orders = await _orderRepository.FindAllByUsernameAsync(username, startDate, endDate, pagination);
+        var categories = await _categoryRepository.FindAllAsync();
         return new UserOrderGridViewModel {
             Payload = orders.ToOrderViewModel(),
             StartDate = startDate,
-            EndDate = endDate
+            EndDate = endDate,
+            Navigation = new UserNavViewModel {
+                CategoryDropdown = [.. categories.Select(e => e.ToSelectListItem())],
+                TotalCartItem = await _cartRepository.CountByUsername(username)
+            }
         };
     }
 

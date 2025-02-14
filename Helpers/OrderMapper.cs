@@ -1,3 +1,5 @@
+using System.Globalization;
+using ShopSphere.Configurations;
 using ShopSphere.Data.Models;
 using ShopSphere.Models;
 using ShopSphere.Models.Orders;
@@ -9,7 +11,7 @@ public static class OrderMapper {
         return new OrderViewModel {
             Id = order.OrderId,
             Buyer = $"{order.User.FirstName} {order.User.LastName}".Trim(),
-            TotalPrice = order.TotalPrice,
+            TotalPrice = string.Format(CultureInfo.GetCultureInfo(CultureConfig.CurrencyCulture), "{0:C}", order.TotalPrice),
             Status = order.Status,
             OrderDate = order.OrderDate
         };
